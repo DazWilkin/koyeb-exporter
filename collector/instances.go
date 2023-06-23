@@ -26,7 +26,7 @@ func NewInstancesCollector(token string) *InstancesCollector {
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
-			"1 if the app is running, 0 otherwise",
+			"1 if the instance is up, 0 otherwise",
 			[]string{
 				"id",
 				"app_id",

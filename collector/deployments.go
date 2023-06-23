@@ -26,7 +26,7 @@ func NewDeploymentsCollector(token string) *DeploymentsCollector {
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
-			"1 if the deployment is running, 0 otherwise",
+			"1 if the deployment is up, 0 otherwise",
 			[]string{
 				"id",
 				"app_id",
