@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -29,8 +30,7 @@ var (
 )
 
 func healthz(w http.ResponseWriter, _ *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	fmt.Fprint(w, "ok")
 }
 func main() {
 	flag.Parse()
