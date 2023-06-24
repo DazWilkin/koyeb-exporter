@@ -52,3 +52,7 @@ groups:
     annotations:
       summary: "Koyeb Instances ({{ $value }}) up (region: {{ $labels.region }})"
 ```
+
+<hr/>
+<br/>
+<a href="https://www.buymeacoffee.com/dazwilkin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
