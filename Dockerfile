@@ -16,7 +16,9 @@ COPY go.sum go.sum
 RUN go mod download
 
 COPY main.go main.go
-COPY collector ./collector
+
+COPY collector collector
+COPY types types
 
 ARG GOOS
 ARG GOARCH
