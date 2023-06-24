@@ -26,7 +26,7 @@ func NewDeploymentsCollector(token string) *DeploymentsCollector {
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
-			"1 if the deployment is up, 0 otherwise",
+			"1 if the Deployment is up, 0 otherwise",
 			[]string{
 				"id",
 				"app_id",
@@ -52,7 +52,7 @@ func (c *DeploymentsCollector) Collect(ch chan<- prometheus.Metric) {
 	rqst := client.DeploymentsApi.ListDeployments(ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
-		msg := "unable to list deployments"
+		msg := "unable to list Deployments"
 		log.Printf(msg, err)
 		return
 	}

@@ -26,7 +26,7 @@ func NewInstancesCollector(token string) *InstancesCollector {
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
-			"1 if the instance is up, 0 otherwise",
+			"1 if the Instance is up, 0 otherwise",
 			[]string{
 				"id",
 				"app_id",
@@ -51,7 +51,7 @@ func (c *InstancesCollector) Collect(ch chan<- prometheus.Metric) {
 	rqst := client.InstancesApi.ListInstances(ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
-		msg := "unable to list instances"
+		msg := "unable to list Instances"
 		log.Printf(msg, err)
 		return
 	}
