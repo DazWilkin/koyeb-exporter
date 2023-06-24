@@ -51,6 +51,7 @@ func main() {
 	registry.MustRegister(collector.NewExporterCollector(OSVersion, GoVersion, GitCommit, StartTime))
 
 	registry.MustRegister(collector.NewAppsCollector(token))
+	registry.MustRegister(collector.NewCredentialsCollector(token))
 	registry.MustRegister(collector.NewDeploymentsCollector(token))
 	registry.MustRegister(collector.NewDomainsCollector(token))
 	registry.MustRegister(collector.NewInstancesCollector(token))

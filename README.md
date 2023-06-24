@@ -26,6 +26,7 @@ All metric names are prefix `koyeb_`
 |Name|Type|Description|
 |----|----|-----------|
 |`apps_up`|Gauge|1 if the App is up, 0 otherwise|
+|`credentials_up`|Gauge|1 if the Credential is up, 0 otherwise|
 |`deployments_up`|Gauge|1 if the Deployment is up, 0 otherwise|
 |`domains_up`|Gauge|1 if the Domain is up, 0 otherwise|
 |`exporter_build_info`|Counter|A metric with a constant '1' value labeled by OS version, Go version, and the Git commit of the exporter|
@@ -46,6 +47,13 @@ groups:
       severity: page
     annotations:
       summary: "Koyeb Apps ({{ $value }}) up (name: {{ $labels.name }})"
+  - alert: koyeb_credentials_up
+    expr: min_over_time(koyeb_credentials_up{}[15m]) > 0
+    for: 3h
+    labels:
+      severity: page
+    annotations:
+      summary: "Koyeb Credentials ({{ $value }}) up (name: {{ $labels.name }})"
   - alert: koyeb_deployments_up
     expr: min_over_time(koyeb_deployments_up{}[15m]) > 0
     for: 3h
