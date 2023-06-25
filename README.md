@@ -37,6 +37,20 @@ All metric names are prefix `koyeb_`
 
 ## Prometheus
 
+```bash
+VERS="v2.45.0"
+
+# Binds to host network to scrape Koyeb Exporter
+podman run \
+--interactive --tty --rm \
+--net=host \
+--volume=${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml \
+--volume=${PWD}/rules.yml:/etc/alertmanager/rules.yml \
+quay.io/prometheus/prometheus:${VERS} \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --web.enable-lifecycle
+```
+
 See [`prometheus.yml`](/prometheus.yml)
 
 ## Alerting Rules
