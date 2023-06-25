@@ -49,7 +49,7 @@ func (c *AppsCollector) Collect(ch chan<- prometheus.Metric) {
 	rqst := client.AppsApi.ListApps(ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
-		msg := "unable to list apps"
+		msg := "unable to list Apps"
 		log.Printf(msg, err)
 		return
 	}
