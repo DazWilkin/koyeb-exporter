@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
+	"expvar"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +11,7 @@ import (
 	"time"
 
 	"github.com/DazWilkin/koyeb-exporter/collector"
+	"github.com/koyeb/koyeb-api-client-go/api/v1/koyeb"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -29,9 +31,6 @@ var (
 	metricsPath = flag.String("path", "/metrics", "The path on which Prometheus metrics will be served")
 )
 
-func healthz(w http.ResponseWriter, _ *http.Request) {
-	fmt.Fprint(w, "ok")
-}
 func main() {
 	flag.Parse()
 
@@ -47,19 +46,25 @@ func main() {
 		log.Fatal("unable to get TOKEN")
 	}
 
+	cfg := koyeb.NewConfiguration()
+	client := koyeb.NewAPIClient(cfg)
+
+	ctx := context.Background()
+	ctx = context.WithValue(ctx, koyeb.ContextAccessToken, token)
+
 	registry := prometheus.NewRegistry()
 	registry.MustRegister(collector.NewExporterCollector(OSVersion, GoVersion, GitCommit, StartTime))
 
-	registry.MustRegister(collector.NewAppsCollector(token))
-	registry.MustRegister(collector.NewCredentialsCollector(token))
-	registry.MustRegister(collector.NewDeploymentsCollector(token))
-	registry.MustRegister(collector.NewDomainsCollector(token))
-	registry.MustRegister(collector.NewInstancesCollector(token))
-	registry.MustRegister(collector.NewSecretsCollector(token))
-	registry.MustRegister(collector.NewServicesCollector(token))
+	registry.MustRegister(collector.NewAppsCollector(ctx, client))
+	registry.MustRegister(collector.NewCredentialsCollector(ctx, client))
+	registry.MustRegister(collector.NewDeploymentsCollector(ctx, client))
+	registry.MustRegister(collector.NewDomainsCollector(ctx, client))
+	registry.MustRegister(collector.NewInstancesCollector(ctx, client))
+	registry.MustRegister(collector.NewSecretsCollector(ctx, client))
+	registry.MustRegister(collector.NewServicesCollector(ctx, client))
 
 	mux := http.NewServeMux()
-	mux.Handle("/healthz", http.HandlerFunc(healthz))
+	mux.Handle("/varz", expvar.Handler())
 	mux.Handle(*metricsPath, promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
 
 	log.Printf("[main] Server starting (%s)", *endpoint)
