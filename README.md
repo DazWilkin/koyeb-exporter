@@ -32,57 +32,16 @@ All metric names are prefix `koyeb_`
 |`exporter_build_info`|Counter|A metric with a constant '1' value labeled by OS version, Go version, and the Git commit of the exporter|
 |`exporter_start_time`|Gauge|Exporter start time in Unix epoch seconds|
 |`instances_up`|Gauge|1 if the instance is up, 0 otherwise|
+|`secrets_up`|Gauge|1 if the Secret is up, 0 otherwise|
 |`services_up`|Gauge|1 if the Service is up, 0 otherwise|
+
+## Prometheus
+
+See [`prometheus.yml`](/prometheus.yml)
 
 ## Alerting Rules
 
-```YAML
-groups:
-- name: koyeb_exporter
-  rules:
-  - alert: koyeb_apps_up
-    expr: min_over_time(koyeb_apps_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Apps ({{ $value }}) up (name: {{ $labels.name }})"
-  - alert: koyeb_credentials_up
-    expr: min_over_time(koyeb_credentials_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Credentials ({{ $value }}) up (name: {{ $labels.name }})"
-  - alert: koyeb_deployments_up
-    expr: min_over_time(koyeb_deployments_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Deployments ({{ $value }}) up (name: {{ $labels.name }})"
-  - alert: koyeb_domains_up
-    expr: min_over_time(koyeb_domains_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Domains ({{ $value }}) up (name: {{ $labels.name }})"
-  - alert: koyeb_instances_up
-    expr: min_over_time(koyeb_instances_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Instances ({{ $value }}) up (region: {{ $labels.region }})"
-  - alert: koyeb_secrets_up
-    expr: min_over_time(koyeb_secrets_up{}[15m]) > 0
-    for: 3h
-    labels:
-      severity: page
-    annotations:
-      summary: "Koyeb Secrets ({{ $value }}) up (name: {{ $labels.name }})"
-```
+See [`rules.yml`](/rules.yml)
 
 <hr/>
 <br/>

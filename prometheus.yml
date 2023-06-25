@@ -1,0 +1,35 @@
+global:
+  # scrape_interval: 1m
+  # evaluation_interval: 1m
+
+rule_files:
+  - "/etc/alertmanager/rules.yml"
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - "alertmanager:9093"
+
+scrape_configs:
+  # Self
+  - job_name: "prometheus-server"
+    static_configs:
+      - targets:
+          - "localhost:9090"
+
+  # Alertmanager
+  - job_name: "alertmanager"
+    static_configs:
+      - targets:
+          - "localhost:9093"
+
+  # Koyeb Exporter
+  - job_name: "koyeb-exporter"
+    # scrape_interval: 15m
+    # scrape_timeout: 1m
+    static_configs:
+      - targets:
+          - "localhost:8080"
+
