@@ -13,17 +13,18 @@ var _ prometheus.Collector = (*DeploymentsCollector)(nil)
 
 // DeploymentsCollector collects Koyeb Deployments metrics
 type DeploymentsCollector struct {
-	Token string
+	Ctx    context.Context
+	Client *koyeb.APIClient
 
 	Up *prometheus.Desc
 }
 
 // NewDeploymentsCollector is a function that creates a new DeploymentsCollector
-func NewDeploymentsCollector(token string) *DeploymentsCollector {
+func NewDeploymentsCollector(ctx context.Context, client *koyeb.APIClient) *DeploymentsCollector {
 	subsystem := "deployments"
 	return &DeploymentsCollector{
-		Token: token,
-
+		Ctx:    ctx,
+		Client: client,
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
 			"1 if the Deployment is up, 0 otherwise",
@@ -43,13 +44,7 @@ func NewDeploymentsCollector(token string) *DeploymentsCollector {
 
 // Collect implements Prometheus' Collector interface and is used to collect metrics
 func (c *DeploymentsCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := koyeb.NewConfiguration()
-	client := koyeb.NewAPIClient(cfg)
-
-	ctx := context.Background()
-	ctx = context.WithValue(ctx, koyeb.ContextAccessToken, c.Token)
-
-	rqst := client.DeploymentsApi.ListDeployments(ctx)
+	rqst := c.Client.DeploymentsApi.ListDeployments(c.Ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
 		msg := "unable to list Deployments"

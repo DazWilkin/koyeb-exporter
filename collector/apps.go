@@ -13,16 +13,18 @@ var _ prometheus.Collector = (*AppsCollector)(nil)
 
 // AppsCollector collects Koyeb Apps metrics
 type AppsCollector struct {
-	Token string
+	Ctx    context.Context
+	Client *koyeb.APIClient
 
 	Up *prometheus.Desc
 }
 
 // NewAppsCollector is a function that creates a new AppsCollector
-func NewAppsCollector(token string) *AppsCollector {
+func NewAppsCollector(ctx context.Context, client *koyeb.APIClient) *AppsCollector {
 	subsystem := "apps"
 	return &AppsCollector{
-		Token: token,
+		Ctx:    ctx,
+		Client: client,
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
@@ -40,13 +42,7 @@ func NewAppsCollector(token string) *AppsCollector {
 
 // Collect implements Prometheus' Collector interface and is used to collect metrics
 func (c *AppsCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := koyeb.NewConfiguration()
-	client := koyeb.NewAPIClient(cfg)
-
-	ctx := context.Background()
-	ctx = context.WithValue(ctx, koyeb.ContextAccessToken, c.Token)
-
-	rqst := client.AppsApi.ListApps(ctx)
+	rqst := c.Client.AppsApi.ListApps(c.Ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
 		msg := "unable to list Apps"

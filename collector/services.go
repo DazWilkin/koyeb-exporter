@@ -13,16 +13,18 @@ var _ prometheus.Collector = (*ServicesCollector)(nil)
 
 // ServicesCollector collects Koyeb Services metrics
 type ServicesCollector struct {
-	Token string
+	Ctx    context.Context
+	Client *koyeb.APIClient
 
 	Up *prometheus.Desc
 }
 
 // NewServicesCollector is a function that creates a new ServicesCollector
-func NewServicesCollector(token string) *ServicesCollector {
+func NewServicesCollector(ctx context.Context, client *koyeb.APIClient) *ServicesCollector {
 	subsystem := "services"
 	return &ServicesCollector{
-		Token: token,
+		Ctx:    ctx,
+		Client: client,
 
 		Up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, subsystem, "up"),
@@ -41,13 +43,7 @@ func NewServicesCollector(token string) *ServicesCollector {
 
 // Collect implements Prometheus' Collector interface and is used to collect metrics
 func (c *ServicesCollector) Collect(ch chan<- prometheus.Metric) {
-	cfg := koyeb.NewConfiguration()
-	client := koyeb.NewAPIClient(cfg)
-
-	ctx := context.Background()
-	ctx = context.WithValue(ctx, koyeb.ContextAccessToken, c.Token)
-
-	rqst := client.ServicesApi.ListServices(ctx)
+	rqst := c.Client.ServicesApi.ListServices(c.Ctx)
 	resp, _, err := rqst.Execute()
 	if err != nil {
 		msg := "unable to list Services"
