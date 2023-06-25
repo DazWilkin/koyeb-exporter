@@ -56,6 +56,7 @@ func main() {
 	registry.MustRegister(collector.NewDomainsCollector(token))
 	registry.MustRegister(collector.NewInstancesCollector(token))
 	registry.MustRegister(collector.NewSecretsCollector(token))
+	registry.MustRegister(collector.NewServicesCollector(token))
 
 	mux := http.NewServeMux()
 	mux.Handle("/healthz", http.HandlerFunc(healthz))
