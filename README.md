@@ -1,5 +1,10 @@
 # Prometheus Exporter for [Koyeb](https://koyeb.com)
 
+[![build-container](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/koyeb-exporter)](https://goreportcard.com/report/github.com/DazWilkin/koyeb-exporter)
+
++ ghcr.io/dazwilkin/koyeb-exporter:9408417970a1e307e5a571fdb4afeb70ff7c950d
+
 Exports Koyeb (Apps, Deployments, Instances) to enable e.g. (Prometheus) Alerting on Koyeb resource consumption ($$$).
 
 ## Run
@@ -56,6 +61,22 @@ See [`prometheus.yml`](/prometheus.yml)
 ## Alerting Rules
 
 See [`rules.yml`](/rules.yml)
+
+## Sigstore
+
+`koyeb-exporter`` container images are being signed by Sigstore and may be verified:
+```bash
+cosign verify \
+--key=./cosign.pub \
+ghcr.io/dazwilkin/koyeb-exporter:9408417970a1e307e5a571fdb4afeb70ff7c950d
+```
+
+> **NOTE** `cosign.pub` may be downloaded [here](./cosign.pub)
+
+To install cosign:
+```bash
+go install github.com/sigstore/cosign/cmd/cosign@latest
+```
 
 <hr/>
 <br/>
