@@ -51,19 +51,19 @@ jobs:
           ghcr.io/${{ env.REPO }}@${{ steps.docker-build-push.outputs.digest }}
         env:
           COSIGN_PASSWORD: ""
-    #   - name: Revise occurrences of the image
-    #     run: |
-    #       git config --local user.email "action@github.com"
-    #       git config --local user.name "GitHub Actions"
+      - name: revise-docs
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
 
-    #       for FILENAME in "./README.md"
-    #       do
-    #         sed \
-    #         --in-place \
-    #         --expression="s|ghcr.io/${{ env.REPO }}:[0-9a-f]\{40\}|ghcr.io/${{ env.REPO }}:${{ github.sha }}|g" \
-    #         ${FILENAME}
-    #         git add ${FILENAME}
-    #       done
+          for FILENAME in "./README.md"
+          do
+            sed \
+            --in-place \
+            --expression="s|ghcr.io/${{ env.REPO }}:[0-9a-f]\{40\}|ghcr.io/${{ env.REPO }}:${{ github.sha }}|g" \
+            ${FILENAME}
+            git add ${FILENAME}
+          done
 
-    #       git commit --message "GitHub Actions update image references"
-    #       git push origin master
+          git commit --message "GitHub Actions update image references"
+          git push origin master
