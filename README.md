@@ -3,7 +3,7 @@
 [![build-container](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/koyeb-exporter)](https://goreportcard.com/report/github.com/DazWilkin/koyeb-exporter)
 
-+ ghcr.io/dazwilkin/koyeb-exporter:9408417970a1e307e5a571fdb4afeb70ff7c950d
++ `ghcr.io/dazwilkin/koyeb-exporter:9408417970a1e307e5a571fdb4afeb70ff7c950d`
 
 Exports Koyeb (Apps, Deployments, Instances) to enable e.g. (Prometheus) Alerting on Koyeb resource consumption ($$$).
 
@@ -13,13 +13,13 @@ Exports Koyeb (Apps, Deployments, Instances) to enable e.g. (Prometheus) Alertin
 
 ```bash
 TOKEN=$(more ~/.koyeb.yaml | yq .token) # Koyeb API Token
-VERS="..." # See package list above
+
 PORT="..."
 
 podman run \
 --interactive --tty --rm \
 --env=TOKEN=${TOKEN} \
-ghcr.io/dazwilkin/koyeb-exporter:${VERS} \
+ghcr.io/dazwilkin/koyeb-exporter:9408417970a1e307e5a571fdb4afeb70ff7c950d \
 --endpoint=":${PORT} \
 --path=/metrics
 ```
