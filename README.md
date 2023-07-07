@@ -64,7 +64,7 @@ See [`rules.yml`](/rules.yml)
 
 ## Sigstore
 
-`koyeb-exporter`` container images are being signed by Sigstore and may be verified:
+`koyeb-exporter` container images are being signed by Sigstore and may be verified:
 ```bash
 cosign verify \
 --key=./cosign.pub \
