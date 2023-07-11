@@ -1,6 +1,7 @@
 # Prometheus Exporter for [Koyeb](https://koyeb.com)
 
 [![build-container](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/DazWilkin/koyeb-exporter/actions/workflows/build.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/DazWilkin/koyeb-exporter.svg)](https://pkg.go.dev/github.com/DazWilkin/koyeb-exporter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/koyeb-exporter)](https://goreportcard.com/report/github.com/DazWilkin/koyeb-exporter)
 
 + `ghcr.io/dazwilkin/koyeb-exporter:43e214e461d358dc898a0a717e82f602e6e3d9c9`
