@@ -1,6 +1,6 @@
 module github.com/DazWilkin/koyeb-exporter
 
-go 1.20
+go 1.21.0
 
 require (
 	github.com/koyeb/koyeb-api-client-go v0.0.0-20230627102521-e7bd5ffc792b
@@ -15,9 +15,9 @@ require (
 	github.com/prometheus/client_model v0.4.0 // indirect
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.11.1 // indirect
-	golang.org/x/net v0.12.0 // indirect
-	golang.org/x/oauth2 v0.10.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
+	golang.org/x/net v0.14.0 // indirect
+	golang.org/x/oauth2 v0.11.0 // indirect
+	golang.org/x/sys v0.11.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )
