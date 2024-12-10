@@ -4,7 +4,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/DazWilkin/koyeb-exporter.svg)](https://pkg.go.dev/github.com/DazWilkin/koyeb-exporter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DazWilkin/koyeb-exporter)](https://goreportcard.com/report/github.com/DazWilkin/koyeb-exporter)
 
-+ `ghcr.io/dazwilkin/koyeb-exporter:3b1e99bb995be1e20eea4b413f4e5a4b27dc9d21`
++ `ghcr.io/dazwilkin/koyeb-exporter:85b7edb4c96e05b7f4d43969d8f79549e7d6afd4`
 
 Exports Koyeb (Apps, Deployments, Instances) to enable e.g. (Prometheus) Alerting on Koyeb resource consumption ($$$).
 
@@ -20,7 +20,7 @@ PORT="..."
 podman run \
 --interactive --tty --rm \
 --env=TOKEN=${TOKEN} \
-ghcr.io/dazwilkin/koyeb-exporter:3b1e99bb995be1e20eea4b413f4e5a4b27dc9d21 \
+ghcr.io/dazwilkin/koyeb-exporter:85b7edb4c96e05b7f4d43969d8f79549e7d6afd4 \
 --endpoint=":${PORT} \
 --path=/metrics
 ```
@@ -69,7 +69,7 @@ See [`rules.yml`](/rules.yml)
 ```bash
 cosign verify \
 --key=./cosign.pub \
-ghcr.io/dazwilkin/koyeb-exporter:3b1e99bb995be1e20eea4b413f4e5a4b27dc9d21
+ghcr.io/dazwilkin/koyeb-exporter:85b7edb4c96e05b7f4d43969d8f79549e7d6afd4
 ```
 
 > **NOTE** `cosign.pub` may be downloaded [here](./cosign.pub)
