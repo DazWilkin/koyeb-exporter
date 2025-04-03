@@ -21,6 +21,7 @@ type ExporterCollector struct {
 // NewExporterCollector returns a new ExporterCollector.
 func NewExporterCollector(osVersion, goVersion, gitCommit string, startTime int64) *ExporterCollector {
 	subsystem := "exporter"
+
 	return &ExporterCollector{
 		osVersion: osVersion,
 		goVersion: goVersion,
